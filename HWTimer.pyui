@@ -1,0 +1,97 @@
+[
+  {
+    "nodes" : [
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{0, 0}, {320, 298}}",
+        "class" : "TableView",
+        "attributes" : {
+          "uuid" : "6D8DCDA7-61ED-4245-9195-1FA34D4495E4",
+          "data_source_action" : "subject_selected",
+          "background_color" : "RGBA(1.0, 1.0, 1.0, 1.0)",
+          "frame" : "{{20, 20}, {200, 200}}",
+          "data_source_items" : "Math\nEnglish\nBiology\nHistory\nSpanish",
+          "tint_color" : "RGBA(0.307692,1.000000,0.505495,1.000000)",
+          "data_source_number_of_lines" : 1,
+          "data_source_delete_enabled" : false,
+          "data_source_font_size" : 18,
+          "row_height" : 60,
+          "class" : "TableView",
+          "name" : "subject_select",
+          "flex" : "WHB"
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{19, 364}, {285, 70}}",
+        "class" : "Button",
+        "attributes" : {
+          "flex" : "WTB",
+          "action" : "stop_pressed",
+          "frame" : "{{120, 224}, {80, 32}}",
+          "title" : "Stop",
+          "uuid" : "96938533-04CF-42C8-A75D-3E07189F948A",
+          "background_color" : "RGBA(0.505618,0.505618,0.505618,1.000000)",
+          "class" : "Button",
+          "custom_attributes" : "",
+          "name" : "button1",
+          "font_size" : 15
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{0, 429}, {320, 45}}",
+        "class" : "Button",
+        "attributes" : {
+          "flex" : "WLRT",
+          "action" : "load_entries",
+          "frame" : "{{120, 224}, {80, 32}}",
+          "title" : "Show Data",
+          "uuid" : "79473E94-F05C-44EB-BB56-FF04160F1ABF",
+          "class" : "Button",
+          "name" : "button2",
+          "font_size" : 15
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{274, 429}, {40, 45}}",
+        "class" : "Button",
+        "attributes" : {
+          "action" : "add_manual",
+          "flex" : "LT",
+          "frame" : "{{120, 224}, {80, 32}}",
+          "title" : "+",
+          "uuid" : "EF42AC21-66FB-4AB5-8DE9-23E1ABAE2F37",
+          "font_bold" : true,
+          "class" : "Button",
+          "name" : "button3",
+          "font_size" : 20
+        },
+        "selected" : false
+      }
+    ],
+    "frame" : "{{0, 0}, {320, 480}}",
+    "class" : "View",
+    "attributes" : {
+      "name" : "Homework Timer",
+      "enabled" : true,
+      "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+      "background_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
+      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
+      "flex" : ""
+    },
+    "selected" : false
+  }
+]
