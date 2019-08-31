@@ -25,8 +25,6 @@ cur.execute('''CREATE TABLE IF NOT EXISTS tmp_save (
     start_time date NOT NULL)''')
 conn.commit()
 
-subjects = ['Math', 'English', 'Biology', 'History', 'Spanish']
-
 start_time = None
 
 
@@ -147,11 +145,12 @@ def load_entries(sender):
     
     # Set up day sums
     day_sums = load_con.cursor().execute('SELECT day, sum(time) FROM entries GROUP BY day ORDER BY day DESC')
-    day_text = 'TOTALS:\n\n'
+    total_title = 'TOTALS:'
     total_sum = 0
     count = 0
     g_data = []
     g_dates = []
+    day_text = ''
     for sum_entry in day_sums:
         day_text += '{}: {} mins\n'.format(sum_entry[0], round(sum_entry[1] / 60, 2))
         
@@ -160,7 +159,13 @@ def load_entries(sender):
         
         total_sum += sum_entry[1]
         count += 1
-    day_text += '\n\nAVG: {} mins'.format(round(total_sum / count / 60, 2))
+    # Avoid divide-by-zero errors
+    if count == 0:
+        avg = 0
+    else:
+        avg = round(total_sum / count / 60, 2)
+    avg_text = 'AVG: {} mins'.format(avg)
+    total_text = f'{total_title}\n\n{avg_text}\n\n{day_text}'
     # Add views
     v = ui.View()
     
@@ -175,18 +180,22 @@ def load_entries(sender):
     v.add_subview(label2)
     
     label_days = ui.TextView(height=650, width=200, x=200)
-    label_days.text = day_text
+    label_days.text = total_text
     label_days.editable = False
     v.add_subview(label_days)
     
     graph_button = ui.Button(height=20, width=50, x=250, y=670)
     graph_button.title = 'Graph'
-    graph_button.action = show_graph
+    # Avoid errors by disallowing graphing with an empty DB
+    if count == 0:
+        graph_button.enabled = False
+    else:
+        graph_button.action = show_graph
     v.add_subview(graph_button)
     
     v.present('sheet')
     load_con.close()
-
+    
 v = ui.load_view()
 v.present('sheet')
 tv = v.subviews[0]

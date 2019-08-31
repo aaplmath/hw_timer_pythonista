@@ -12,7 +12,7 @@
           "data_source_action" : "subject_selected",
           "background_color" : "RGBA(1.0, 1.0, 1.0, 1.0)",
           "frame" : "{{20, 20}, {200, 200}}",
-          "data_source_items" : "Math\nEnglish\nBiology\nHistory\nSpanish",
+          "data_source_items" : "Math\nEnglish\nPhysics\nHistory\nSpanish",
           "tint_color" : "RGBA(0.307692,1.000000,0.505495,1.000000)",
           "data_source_number_of_lines" : 1,
           "data_source_delete_enabled" : false,
@@ -22,7 +22,7 @@
           "name" : "subject_select",
           "flex" : "WHB"
         },
-        "selected" : false
+        "selected" : true
       },
       {
         "nodes" : [
@@ -85,11 +85,11 @@
     "frame" : "{{0, 0}, {320, 480}}",
     "class" : "View",
     "attributes" : {
-      "name" : "Homework Timer",
+      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
       "enabled" : true,
       "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+      "name" : "Homework Timer",
       "background_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
-      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
       "flex" : ""
     },
     "selected" : false
