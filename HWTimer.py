@@ -100,7 +100,7 @@ def show_graph(sender):
     plt.plot(g_dates, g_data, '#fa4224', linewidth=0.5)
     
     # hacky "smoothing" (https://stackoverflow.com/a/26337730)
-    smooth_box_pts = 10  # number of days to aggregate when smoothing
+    smooth_box_pts = np.round(np.log2(len(g_data))) + 1  # number of days to aggregate when smoothing
     box = np.ones(smooth_box_pts)/smooth_box_pts
     y_smooth = np.convolve(g_data, box, mode='same')
     plt.plot(g_dates, y_smooth, 'g-', linewidth=2.0)
