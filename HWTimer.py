@@ -105,6 +105,9 @@ def show_graph(sender):
     y_smooth = np.convolve(g_data, box, mode='same')
     plt.plot(g_dates, y_smooth, 'g-', linewidth=2.0)
     
+    # make y-axis start at 0
+    plt.axes().set_ylim(0, plt.axes().get_ylim()[1])
+    
     # make date labels fit
     plt.gcf().autofmt_xdate()
     
