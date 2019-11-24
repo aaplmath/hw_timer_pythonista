@@ -143,7 +143,9 @@ def load_entries(sender):
     # Set up averages
     disp = ''
     for subj in entries:
-        disp += '{}: {} min/day\n'.format(subj, round(entries[subj]['sum'] / entries[subj]['days'] / 60, 2))
+        disp += '{}: {} min/day ({} total)\n'.format(subj,
+        round(entries[subj]['sum'] / entries[subj]['days'] / 60, 2),
+        round(entries[subj]['sum'] / 60))
     disp = disp[:-1]
     
     # Set up day sums
@@ -173,7 +175,7 @@ def load_entries(sender):
     v = ui.View()
     
     label = ui.TextView(height=200, width=500)
-    label.text = 'AVERAGES:\n\n' + disp
+    label.text = 'SUBJECT AVERAGES:\n\n' + disp
     label.editable = False
     v.add_subview(label)
     
