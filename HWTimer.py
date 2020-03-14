@@ -202,6 +202,7 @@ def load_entries(sender):
     load_con.close()
     
 def main():
+    global tv, button
     v = ui.load_view()
     v.present('fullscreen')
     tv = v.subviews[0]
