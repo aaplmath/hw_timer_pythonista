@@ -201,24 +201,27 @@ def load_entries(sender):
     v.present('sheet')
     load_con.close()
     
-v = ui.load_view()
-v.present('sheet')
-tv = v.subviews[0]
-button = v.subviews[1]
-save = cur.execute('SELECT subject, start_time FROM tmp_save').fetchone()
-conn.commit()
-if save is not None:
-    select = console.alert('Save Exists', 'There is an unfinished session in progress:\nSubject: {}\nStart Time: {}'.format(save[0], save[1]), 'Discard', 'Resume')
-    if select == 1:
-        cur.execute(del_tmp)
-        conn.commit()
-        conn.close()
-    elif select == 2:
-        # Don't del temp because we might want that save if this session unexpectedly terminates, too; similarly, don't create another save because this one already exists
-        conn.close()
-        initiate_timer(save[0], datetime.datetime.strptime(save[1], '%Y-%m-%d %H:%M:%S'), False)
+def main():
+    v = ui.load_view()
+    v.present('fullscreen')
+    tv = v.subviews[0]
+    button = v.subviews[1]
+    save = cur.execute('SELECT subject, start_time FROM tmp_save').fetchone()
+    conn.commit()
+    if save is not None:
+        select = console.alert('Save Exists', 'There is an unfinished session in progress:\nSubject: {}\nStart Time: {}'.format(save[0], save[1]), 'Discard', 'Resume')
+        if select == 1:
+            cur.execute(del_tmp)
+            conn.commit()
+            conn.close()
+        elif select == 2:
+            # Don't del temp because we might want that save if this session unexpectedly terminates, too; similarly, don't create another save because this one already exists
+            conn.close()
+            initiate_timer(save[0], datetime.datetime.strptime(save[1], '%Y-%m-%d %H:%M:%S'), False)
+        else:
+            conn.close()
     else:
         conn.close()
-else:
-    conn.close()
 
+if __name__ == "__main__":
+    main()
