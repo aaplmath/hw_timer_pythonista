@@ -6,6 +6,12 @@ from matplotlib import pyplot as plt, dates as mdates
 import matplotlib as mpl
 from io import BytesIO
 import numpy as np
+from themeutils import style_ui, get_color_scheme, _determine_bgcolor, theme_is_dark
+from objc_util import *
+from PIL import ImageColor
+import editor
+
+subjects = ['Math', 'English', 'Physics', 'History', 'Spanish']
 
 db_path = 'db/hwtimer.db'
 
@@ -117,7 +123,9 @@ def show_graph(sender):
     img_view = ui.ImageView(background_color='white')
     img_view.content_mode = ui.CONTENT_SCALE_ASPECT_FIT
     img_view.image = img
-    img_view.present()
+    # editor.present_themed(img_view, style='sheet')
+    style_ui(img_view)
+    present_themed(img_view, style='sheet')
     plt.clf()
 
 
@@ -198,15 +206,69 @@ def load_entries(sender):
         graph_button.action = show_graph
     v.add_subview(graph_button)
     
-    v.present('sheet')
-    load_con.close()
+    style_ui(v)
     
+    # editor.present_themed(v, style='sheet')
+    style_ui(v)
+    present_themed(v, style='sheet')
+    load_con.close()
+
+
+class TVDataSource (object):
+    def tableview_number_of_sections(self, tableview):
+        # Return the number of sections (defaults to 1)
+        return 1
+
+    def tableview_number_of_rows(self, tableview, section):
+        # Return the number of rows in the section
+        return len(subjects)
+
+    def tableview_cell_for_row(self, tableview, section, row):
+        # Create and return a cell for the given section/row
+        cell = ui.TableViewCell()
+        cell.text_label.text = subjects[row]
+        
+        # style cell, then fix style_ui's inconistent background colors
+        style_ui(cell)
+        if theme_is_dark():
+            cell.text_label.text_color = '#cccccc'
+        bg_view = ui.View()
+        select_tint = [0, 0, 0, 1]
+
+        tinting_factor = 0.1
+        for idx in range(len(cell.background_color)):
+            if idx < len(cell.background_color) - 1:
+                if theme_is_dark():
+                    select_tint[idx] = cell.background_color[idx] + tinting_factor
+                else:
+                    select_tint[idx] = cell.background_color[idx] - tinting_factor
+
+        bg_view.background_color = tuple(select_tint)
+        cell.selected_background_view = bg_view
+        return cell
+
+    def tableview_can_delete(self, tableview, section, row):
+        # Return True if the user should be able to delete the given row.
+        return False
+
+    def tableview_can_move(self, tableview, section, row):
+        # Return True if a reordering control should be shown for the given row (in editing mode).
+        return False
+
+
+def present_themed(v, **kwargs):
+    v.present(**kwargs, title_bar_color=_determine_bgcolor(v, get_color_scheme()), title_color=('#cccccc' if theme_is_dark() else '#000000'))
+
+
 def main():
     global tv, button
     v = ui.load_view()
-    v.present('fullscreen')
     tv = v.subviews[0]
     button = v.subviews[1]
+    tv.data_source = TVDataSource()
+    style_ui(v)
+    present_themed(v, style='fullscreen')
+    # editor.present_themed(v, style='fullscreen')
     save = cur.execute('SELECT subject, start_time FROM tmp_save').fetchone()
     conn.commit()
     if save is not None:

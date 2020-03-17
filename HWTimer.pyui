@@ -10,7 +10,6 @@
         "attributes" : {
           "uuid" : "6D8DCDA7-61ED-4245-9195-1FA34D4495E4",
           "data_source_action" : "subject_selected",
-          "background_color" : "RGBA(1.0, 1.0, 1.0, 1.0)",
           "frame" : "{{20, 20}, {200, 200}}",
           "data_source_items" : "Math\nEnglish\nPhysics\nHistory\nSpanish",
           "tint_color" : "RGBA(0.307692,1.000000,0.505495,1.000000)",
@@ -85,11 +84,11 @@
     "frame" : "{{0, 0}, {320, 480}}",
     "class" : "View",
     "attributes" : {
-      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
-      "enabled" : true,
       "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
-      "name" : "Homework Timer",
+      "enabled" : true,
       "background_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
+      "name" : "Homework Timer",
+      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
       "flex" : ""
     },
     "selected" : false
